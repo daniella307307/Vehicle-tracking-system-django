@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render,redirect
-from django.contrib.auth import authenticate,login
+from django.contrib.auth import authenticate,login,logout
 from .forms import CustomUserCreationForm
 # Create your views here.
 def register_user(request):
@@ -30,3 +30,7 @@ def login_view(request):
             return render(request, 'login.html', {'error': 'Invalid username or password'})
         
     return render(request, 'login.html')
+
+def logout_view(request):
+    logout(request)
+    return redirect('login') 
