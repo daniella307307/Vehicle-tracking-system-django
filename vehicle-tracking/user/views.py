@@ -9,8 +9,8 @@ def register_user(request):
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()  # Save the user
-            login(request)  # Log the user in after successful registration
-            return redirect('home.html')  # Redirect to home page after login
+            login(request,user)  # Log the user in after successful registration
+            return redirect('home')  # Redirect to home page after login
     else:
         form = CustomUserCreationForm()
     

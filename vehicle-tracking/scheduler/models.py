@@ -1,7 +1,7 @@
 from django.db import models
 
 class Vehicle(models.Model):
-    VIN = models.CharField(max_length=17, unique=True)
+    VIN = models.AutoField(max_length=17, unique=True,primary_key=True)
     make = models.CharField(max_length=50)
     model = models.CharField(max_length=50)
     year = models.IntegerField()
@@ -10,8 +10,7 @@ class Vehicle(models.Model):
     longitude = models.FloatField()
     driver = models.ForeignKey('Driver', on_delete=models.SET_NULL, null=True, related_name='vehicles')
 
-    def __str__(self):
-        return self.VIN
+
 
     class Meta:
         db_table = "vehicles"
@@ -22,9 +21,6 @@ class Driver(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     phone_number = models.CharField(max_length=15)
-
-    def __str__(self):
-        return self.license_number
 
     class Meta:
         db_table = "drivers"
