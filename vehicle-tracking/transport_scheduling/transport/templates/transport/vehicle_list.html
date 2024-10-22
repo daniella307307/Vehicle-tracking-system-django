@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle List</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Vehicle List</h1>
+        <a href="{% url 'add_vehicle' %}" class="btn btn-primary">Add Vehicle</a>
+        <table class="table table-bordered mt-3">
+            <thead>
+                <tr>
+                    <th>VIN</th>
+                    <th>Make</th>
+                    <th>Model</th>
+                    <th>Year</th>
+                    <th>Color</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for vehicle in vehicles %}
+                <tr>
+                    <td>{{ vehicle.VIN }}</td>
+                    <td>{{ vehicle.make }}</td>
+                    <td>{{ vehicle.model }}</td>
+                    <td>{{ vehicle.year }}</td>
+                    <td>{{ vehicle.color }}</td>
+                    <td>
+                        <a href="{% url 'edit_vehicle' vehicle.id %}" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="{% url 'delete_vehicle' vehicle.id %}" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
