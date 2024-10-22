@@ -71,8 +71,8 @@ DATABASES = {
         'NAME': 'vehicle_tracking',
         'USER': 'postgres',
         'PASSWORD': 'Bruno@1980',
-        'HOST': 'localhost',  # Or your database server
-        'PORT': '5432',       # Default PostgreSQL port
+        'HOST': 'localhost', 
+        'PORT': '5432',  
     }
 }
 

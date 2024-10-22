@@ -14,22 +14,15 @@ class User(AbstractUser):
         return super().__str__()
     class Meta:
         db_table = "users"
-        
-        
-class Admin(User):
-    class Meta:
-        db_table ="admin-user"
-    
-    
-class Driver(User):
-    class Meta:
-        db_table="driver"
-        
+class Admin(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+  
 
-class Dispatcher(User):
-    class Meta:
-        db_table = "dispatchers" 
+class Driver(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
 
-class Customer(User):
-    class Meta:
-        db_table = "customers"
+class Dispatcher(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+class Customer(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)

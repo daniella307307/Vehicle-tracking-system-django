@@ -1,14 +1,14 @@
 from django.db import models
 
 class Vehicle(models.Model):
-    VIN = models.AutoField(max_length=17, unique=True,primary_key=True)
+    VIN = models.AutoField(unique=True,primary_key=True)
     make = models.CharField(max_length=50)
     model = models.CharField(max_length=50)
     year = models.IntegerField()
     color = models.CharField(max_length=50)
     latitude = models.FloatField()  # Use FloatField for latitude/longitude
     longitude = models.FloatField()
-    driver = models.ForeignKey('Driver', on_delete=models.SET_NULL, null=True, related_name='vehicles')
+    driver = models.ForeignKey('user.Driver', on_delete=models.SET_NULL, null=True, related_name='vehicles')
 
 
 
@@ -32,7 +32,7 @@ class Route(models.Model):
     end_latitude = models.FloatField()
     end_longitude = models.FloatField()
     vehicle = models.ForeignKey('Vehicle', on_delete=models.CASCADE, related_name='routes')
-
+    
     def __str__(self):
         return f"Route from ({self.start_latitude}, {self.start_longitude}) to ({self.end_latitude}, {self.end_longitude})"
 
