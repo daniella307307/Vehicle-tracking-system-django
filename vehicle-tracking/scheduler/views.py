@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Vehicle
-from .forms import VehicleForm
+from .forms import VehicleForm, SchedulerForm
 
 # List all vehicles
 def vehicle_list(request):
@@ -28,3 +28,18 @@ def vehicle_create_or_update(request, pk=None):
 def vehicle_location(request, pk):
     vehicle = get_object_or_404(Vehicle, pk=pk)
     return render(request, 'vehicles/vehicle_location.html', {'vehicle': vehicle})
+
+def create_schedule(request, vehicle):
+    if pk:
+        vehicle = get_object_or_404(Vehicle, pk=pk)
+        if request.method == 'POST':
+            # Process the schedule form data
+            schedule_form = SchedulerForm(request.POST)
+            if schedule_form.is_valid():
+                # Save the schedule
+                schedule = schedule_form.save(commit=False)
+                schedule.vehicle = vehicle
+                schedule.save()
+                return redirect('vehicle_location', pk=vehicle.pk)
+        else:
+            schedule_form = SchedulerForm()

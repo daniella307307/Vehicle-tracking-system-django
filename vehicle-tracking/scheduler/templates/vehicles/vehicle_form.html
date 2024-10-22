@@ -4,65 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% if vehicle %}Edit Vehicle{% else %}Add Vehicle{% endif %}</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        /* Additional styling for a more appealing layout */
-        body {
-            background-color: #f8f9fa;
-        }
-        .container {
-            margin-top: 50px;
-            padding: 30px;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            margin-bottom: 30px;
-        }
-        .btn {
-            margin-right: 10px;
-        }
-    </style>
 </head>
 <body>
     <div class="container">
         <h1>{% if vehicle %}Edit Vehicle{% else %}Add Vehicle{% endif %}</h1>
         <form method="POST">
             {% csrf_token %}
-            <div class="form-group">
+            <div    >
                 <label for="VIN">VIN:</label>
-                <input type="text" class="form-control" id="VIN" name="VIN" value="{% if vehicle %}{{ vehicle.VIN }}{% endif %}" required>
+                <input type="text"   id="VIN" name="VIN" value="{% if vehicle %}{{ vehicle.VIN }}{% endif %}" required>
             </div>
-            <div class="form-group">
+            <div    >
                 <label for="make">Make:</label>
-                <input type="text" class="form-control" id="make" name="make" value="{% if vehicle %}{{ vehicle.make }}{% endif %}" required>
+                <input type="text"   id="make" name="make" value="{% if vehicle %}{{ vehicle.make }}{% endif %}" required>
             </div>
-            <div class="form-group">
+            <div    >
                 <label for="model">Model:</label>
-                <input type="text" class="form-control" id="model" name="model" value="{% if vehicle %}{{ vehicle.model }}{% endif %}" required>
+                <input type="text"   id="model" name="model" value="{% if vehicle %}{{ vehicle.model }}{% endif %}" required>
             </div>
-            <div class="form-group">
+            <div    >
                 <label for="year">Year:</label>
-                <input type="number" class="form-control" id="year" name="year" value="{% if vehicle %}{{ vehicle.year }}{% endif %}" required>
+                <input type="number"   id="year" name="year" value="{% if vehicle %}{{ vehicle.year }}{% endif %}" required>
             </div>
-            <div class="form-group">
+            <div    >
                 <label for="color">Color:</label>
-                <input type="text" class="form-control" id="color" name="color" value="{% if vehicle %}{{ vehicle.color }}{% endif %}" required>
+                <input type="text"   id="color" name="color" value="{% if vehicle %}{{ vehicle.color }}{% endif %}" required>
             </div>
-            <div class="form-group">
+            <div    >
                 <label for="latitude">Latitude:</label>
-                <input type="number" step="any" class="form-control" id="latitude" name="latitude" value="{% if vehicle %}{{ vehicle.latitude }}{% endif %}" required>
+                <input type="number" step="any"   id="latitude" name="latitude" value="{% if vehicle %}{{ vehicle.latitude }}{% endif %}" required>
             </div>
-            <div class="form-group">
+            <div    >
                 <label for="longitude">Longitude:</label>
-                <input type="number" step="any" class="form-control" id="longitude" name="longitude" value="{% if vehicle %}{{ vehicle.longitude }}{% endif %}" required>
+                <input type="number" step="any"   id="longitude" name="longitude" value="{% if vehicle %}{{ vehicle.longitude }}{% endif %}" required>
             </div>
 
             <!-- Add Driver Dropdown -->
-            <div class="form-group">
+            <div>
                 <label for="driver">Driver:</label>
-                <select class="form-control" id="driver" name="driver_id" required>
+                <select   id="driver" name="driver_id" required>
                     <option value="">Select a Driver</option>
                     {% for driver in drivers %}
                         <option value="{{ driver.id }}" {% if vehicle and vehicle.driver_id == driver.id %}selected{% endif %}>{{ driver.name }}</option>
@@ -70,7 +50,7 @@
                 </select>
             </div>
 
-            <button type="submit" class="btn btn-primary">{% if vehicle %}Update Vehicle{% else %}Add Vehicle{% endif %}</button>
+            <button type="submit">{% if vehicle %}Update Vehicle{% else %}Add Vehicle{% endif %}</button>
             <a href="{% url 'vehicle_list' %}" class="btn btn-secondary">Cancel</a>
         </form>
     </div>

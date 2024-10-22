@@ -12,6 +12,24 @@ class User(AbstractUser):
     role = models.CharField(max_length=15, choices=Role)
     def __str__(self) -> str:
         return super().__str__()
+    class Meta:
+        db_table = "users"
+        
+        
+class Admin(User):
+    class Meta:
+        db_table ="admin-user"
+    
+    
+class Driver(User):
+    class Meta:
+        db_table="driver"
+        
 
-class Meta:
-    db_name= "users"
+class Dispatcher(User):
+    class Meta:
+        db_table = "dispatchers" 
+
+class Customer(User):
+    class Meta:
+        db_table = "customers"

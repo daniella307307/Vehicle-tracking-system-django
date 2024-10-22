@@ -52,8 +52,8 @@ class Location(models.Model):
         db_table = "locations"
 
 
-class Scheduler(models.Model):
-    route = models.ForeignKey('Route', on_delete=models.CASCADE, related_name='schedules')
+class Schedule(models.Model):
+    route_id = models.ForeignKey('Route', on_delete=models.CASCADE, related_name='schedules')
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
 
