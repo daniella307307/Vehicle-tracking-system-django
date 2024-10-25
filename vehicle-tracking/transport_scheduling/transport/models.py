@@ -1,5 +1,12 @@
 from django.db import models
 
+class Location(models.Model):
+    name = models.CharField(max_length=100)
+    latitude = models.FloatField()
+    longitude = models.FloatField()
+    location_type = models.CharField(max_length=50)
+    def __str__(self):
+        return self.name
 class Driver(models.Model):
     name = models.CharField(max_length=100)
     license_number = models.CharField(max_length=50)
@@ -26,8 +33,8 @@ class Vehicle(models.Model):
 class Route(models.Model):
     start_location = models.CharField(max_length=100)
     end_location = models.CharField(max_length=100)
-    distance = models.FloatField()  # Distance in kilometers
-    duration = models.FloatField()   # Duration in hours
+    distance = models.FloatField() 
+    duration = models.FloatField()  
 
     def __str__(self):
         return f"Route from {self.start_location} to {self.end_location}"
@@ -42,3 +49,4 @@ class Schedule(models.Model):
 
     def __str__(self):
         return f"Schedule: {self.vehicle} - {self.driver} on {self.route}"
+ 
