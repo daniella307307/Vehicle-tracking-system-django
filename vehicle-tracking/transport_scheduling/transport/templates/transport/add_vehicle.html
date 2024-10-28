@@ -13,7 +13,7 @@
             {% csrf_token %}
             {{ form.as_p }}
             <button type="submit" class="btn btn-success">Add Vehicle</button>
-            <a href="{% url 'vehicle_list' %}" class="btn btn-secondary">Cancel</a>
+            <a href="{% url 'transport:vehicle_list' %}" class="btn btn-secondary">Cancel</a>
         </form>
     </div>
 </body>

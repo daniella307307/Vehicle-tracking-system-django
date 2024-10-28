@@ -5,7 +5,7 @@ from .views import (
     route_list, add_route, edit_route, delete_route,
     schedule_list, add_schedule, edit_schedule, delete_schedule,dashboard
 )
-
+app_name= 'transport'
 urlpatterns = [
     #dashboard
     path('dashboard/', dashboard, name='dashboard'),

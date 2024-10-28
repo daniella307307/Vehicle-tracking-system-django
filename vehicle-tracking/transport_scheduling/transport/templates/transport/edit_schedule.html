@@ -13,7 +13,7 @@
             {% csrf_token %}
             {{ form.as_p }}
             <button type="submit" class="btn btn-warning">Update Schedule</button>
-            <a href="{% url 'schedule_list' %}" class="btn btn-secondary">Cancel</a>
+            <a href="{% url 'transport:schedule_list' %}" class="btn btn-secondary">Cancel</a>
         </form>
     </div>
 </body>

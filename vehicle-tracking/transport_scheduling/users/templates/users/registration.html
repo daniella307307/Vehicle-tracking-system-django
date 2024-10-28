@@ -1,83 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
+    <title>Registration Form</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            margin: 0;
-            padding: 0;
+            background-color: #f4f4f4;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            margin: 0;
         }
-        .register-container {
-            background-color: #fff;
-            padding: 20px;
+
+        .form-container {
+            background-color: white;
+            padding: 2em;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             width: 300px;
         }
-        .register-container h1 {
+
+        h2 {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 1.5em;
+            color: #333;
         }
-        .register-container label {
+
+        label {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 0.5em;
+            color: #555;
         }
-        .register-container input {
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        select {
             width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
+            padding: 0.8em;
+            margin-bottom: 1em;
             border: 1px solid #ccc;
             border-radius: 4px;
+            box-sizing: border-box;
         }
-        .register-container button {
+
+        button {
             width: 100%;
-            padding: 10px;
+            padding: 0.8em;
             background-color: #28a745;
+            color: white;
             border: none;
-            color: #fff;
-            font-size: 16px;
             border-radius: 4px;
+            font-size: 16px;
             cursor: pointer;
         }
-        .register-container button:hover {
+
+        button:hover {
             background-color: #218838;
         }
-        .register-container p {
-            text-align: center;
-        }
-        .register-container a {
-            color: #28a745;
-            text-decoration: none;
-        }
-        .register-container a:hover {
-            text-decoration: underline;
+
+        .error-message {
+            color: red;
+            font-size: 0.9em;
+            margin-bottom: 1em;
         }
     </style>
 </head>
+
 <body>
-    <div class="register-container">
-        <h1>Register</h1>
-        <form method="POST" >
-            <label for="username">Username</label>
-            <input type="text" id="username" name="username" required>
-            
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" required>
-            
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password" required>
-            
+    <div class="form-container">
+        <h2>Register</h2>
+        <form method="POST" action="{% url 'register_user' %}">
+            {% csrf_token %}
+
+            <label for="id_username">Username:</label>
+            <input type="text" name="username" id="id_username" required>
+
+            <label for="id_email">Email:</label>
+            <input type="email" name="email" id="id_email" required>
+
+            <div>
+                <label for="password1">Password:</label>
+                <input type="password" name="password1" id="password1" required>
+                {% if user_form.errors %}
+                <div class="error-message">
+                    <ul>
+                        {% for field, errors in user_form.errors.items %}
+                        <li>{{ field }}: {{ errors|join:", " }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+            </div>
+            <div>
+                <label for="password2">Confirm Password:</label>
+                <input type="password" name="password2" id="password2" required>
+                {% if user_form.password2.errors %}
+                <ul>
+                    {% for error in user_form.password2.errors %}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+
+            <label for="id_role">Role:</label>
+            <select name="role" id="id_role" required>
+                <option value="">Select a role</option>
+                <option value="admin">Admin</option>
+                <option value="driver">Driver</option>
+                <option value="scheduler">Scheduler</option>
+                <option value="viewer">Viewer</option>
+                <option value="passenger">Passenger</option>
+            </select>
+
             <button type="submit">Register</button>
-            <p>Already have an account? <a href="/login">Login here</a></p>
         </form>
+        <span>Already have an account? <a href="{% url 'login_user' %}">Login</a></span>
     </div>
 </body>
+
 </html>

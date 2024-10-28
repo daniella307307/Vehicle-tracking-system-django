@@ -1,30 +1,23 @@
+# user/models.py
+from django.contrib.auth.models import User,AbstractUser
 from django.db import models
-from django.contrib.auth.models import AbstractUser
-# Create your models here.
+from django.conf import settings
 
+class Profile(models.Model):
+    ROLE_CHOICES = [
+        ('admin', 'Admin'),
+        ('driver', 'Driver'),
+        ('scheduler', 'Scheduler'),
+        ('viewer', 'Viewer'),
+        ('driver', 'Driver'),
+        ('passenger', 'Passenger'),
+    ]
+    
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    role = models.CharField(max_length=20, choices=ROLE_CHOICES)
+    
+    def __str__(self):
+        return f"{self.user.username} - {self.get_role_display()}"
+    
 class CustomUser(AbstractUser):
-    ROLE_CHOICES= [
-        ('DRIVER', 'Driver'),
-        ('ADMIN', 'Admin'),
-        ('CLIENT', 'Client'),
-        ('DISPATCHER','Dispatcher'),
-         ]
-    
-    role= models.CharField(max_length=10, choices= ROLE_CHOICES, default=ROLE_CHOICES[2]),
-    birthdate= models.DateTimeField(editable=True, null=True, blank=True)
-    address= models.CharField(max_length=200, blank=True)
-    phone_number= models.CharField(max_length=15, blank=True)
-    email= models.EmailField(unique=True)
-    driver_license= models.CharField(max_length=20, blank=True, null=True)
-        
-    def is_admin(self):
-        return self.role == self.ADMIN
-            
-    def is_client(self):
-        return self.role == self.CLIENT
-    def is_dispatcher(self):
-        return self.role == self.DISPATCHER
-    def is_driver(self):
-        return self.role == self.DRIVER
-            
-    
+    pass

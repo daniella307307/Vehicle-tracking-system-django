@@ -9,7 +9,7 @@
 <body>
     <div class="container">
         <h1>Route List</h1>
-        <a href="{% url 'add_route' %}" class="btn btn-primary">Add Route</a>
+        <a href="{% url 'transport:add_route' %}" class="btn btn-primary">Add Route</a>
         <table class="table table-bordered mt-3">
             <thead>
                 <tr>
@@ -28,8 +28,8 @@
                     <td>{{ route.distance }}</td>
                     <td>{{ route.duration }}</td>
                     <td>
-                        <a href="{% url 'edit_route' route.id %}" class="btn btn-warning btn-sm">Edit</a>
-                        <a href="{% url 'delete_route' route.id %}" class="btn btn-danger btn-sm">Delete</a>
+                        <a href="{% url 'transport:edit_route' route.id %}" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="{% url 'transport:delete_route' route.id %}" class="btn btn-danger btn-sm">Delete</a>
                     </td>
                 </tr>
                 {% endfor %}

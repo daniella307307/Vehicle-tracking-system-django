@@ -1,9 +1,9 @@
-from django.urls import path
-from . import views
+from django.urls import path,include
+from .views import register_user,login_user, logout_user
 
 urlpatterns = [
-    path('register/', views.register_view, name='register'),
-    path('login/', views.login_view, name='login'),
-    path('logout/', views.logout_view, name='logout'),
-    path('admin/dashboard/', views.admin_dashboard, name='admin_dashboard'),  # Restricted to admins
+    path('register/', register_user, name='register_user'),
+    path('login/', login_user, name='login_user'),  
+    path('logout/', logout_user, name='logout_user'), 
+  
 ]

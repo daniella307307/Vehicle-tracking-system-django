@@ -1,4 +1,4 @@
-{% load static %}  <!-- Add this line -->
+{% load static %}  <!-- Ensures static files are loaded -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -11,72 +11,125 @@
 </head>
 <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Transport Management</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
+                <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'vehicle_list' %}">Manage Vehicles</a>
+                        <a class="nav-link" href="{% url 'transport:vehicle_list' %}">Vehicles</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'driver_list' %}">Manage Drivers</a>
+                        <a class="nav-link" href="{% url 'transport:driver_list' %}">Drivers</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'route_list' %}">Manage Routes</a>
+                        <a class="nav-link" href="{% url 'transport:route_list' %}">Routes</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'schedule_list' %}">Manage Schedules</a>
+                        <a class="nav-link" href="{% url 'transport:schedule_list' %}">Schedules</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 
+    <!-- Dashboard Main Content -->
     <div class="container mt-5">
-        <h1>Admin Dashboard</h1>
+        <h1 class="text-center mb-4">Admin Dashboard</h1>
+        
+        <!-- Overview Cards Section -->
+        <div class="row text-center mb-4">
+            <div class="col-md-3">
+                <div class="card border-primary shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">Vehicles</h5>
+                        <p class="card-text display-6">120</p> <!-- Example stat -->
+                        <a href="{% url 'transport:vehicle_list' %}" class="btn btn-primary">Manage Vehicles</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card border-success shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">Drivers</h5>
+                        <p class="card-text display-6">50</p> <!-- Example stat -->
+                        <a href="{% url 'transport:driver_list' %}" class="btn btn-success">Manage Drivers</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card border-warning shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">Routes</h5>
+                        <p class="card-text display-6">30</p> <!-- Example stat -->
+                        <a href="{% url 'transport:route_list' %}" class="btn btn-warning text-white">Manage Routes</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card border-danger shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">Schedules</h5>
+                        <p class="card-text display-6">200</p> <!-- Example stat -->
+                        <a href="{% url 'transport:schedule_list' %}" class="btn btn-danger">Manage Schedules</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detailed Management Section -->
         <div class="row">
-            <div class="col-md-3">
-                <div class="card">
+            <div class="col-md-6">
+                <div class="card shadow-sm">
                     <div class="card-body">
-                        <h5 class="card-title">Manage Vehicles</h5>
-                        <a href="{% url 'vehicle_list' %}" class="btn btn-primary">View Vehicles</a>
-                        <a href="{% url 'add_vehicle' %}" class="btn btn-secondary">Add Vehicle</a>
+                        <h5 class="card-title">Add New Vehicle</h5>
+                        <p class="card-text">Register a new vehicle in the system.</p>
+                        <a href="{% url 'transport:add_vehicle' %}" class="btn btn-primary">Add Vehicle</a>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="card">
+            <div class="col-md-6">
+                <div class="card shadow-sm">
                     <div class="card-body">
-                        <h5 class="card-title">Manage Drivers</h5>
-                        <a href="{% url 'driver_list' %}" class="btn btn-primary">View Drivers</a>
-                        <a href="{% url 'add_driver' %}" class="btn btn-secondary">Add Driver</a>
+                        <h5 class="card-title">Add New Driver</h5>
+                        <p class="card-text">Add a new driver to the team.</p>
+                        <a href="{% url 'transport:add_driver' %}" class="btn btn-success">Add Driver</a>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="card">
+        </div>
+        
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <div class="card shadow-sm">
                     <div class="card-body">
-                        <h5 class="card-title">Manage Routes</h5>
-                        <a href="{% url 'route_list' %}" class="btn btn-primary">View Routes</a>
-                        <a href="{% url 'add_route' %}" class="btn btn-secondary">Add Route</a>
+                        <h5 class="card-title">Add New Route</h5>
+                        <p class="card-text">Define a new route for transport vehicles.</p>
+                        <a href="{% url 'transport:add_route' %}" class="btn btn-warning text-white">Add Route</a>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="card">
+            <div class="col-md-6">
+                <div class="card shadow-sm">
                     <div class="card-body">
-                        <h5 class="card-title">Manage Schedules</h5>
-                        <a href="{% url 'schedule_list' %}" class="btn btn-primary">View Schedules</a>
-                        <a href="{% url 'add_schedule' %}" class="btn btn-secondary">Add Schedule</a>
+                        <h5 class="card-title">Add New Schedule</h5>
+                        <p class="card-text">Create a schedule for transportation.</p>
+                        <a href="{% url 'transport:add_schedule' %}" class="btn btn-danger">Add Schedule</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Footer -->
+    <footer class="bg-light text-center mt-5 py-3">
+        <p class="mb-0">&copy; 2024 Transport Management System. All rights reserved.</p>
+    </footer>
+
+    <!-- Scripts -->
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
 </body>
 </html>
