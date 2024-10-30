@@ -16,7 +16,7 @@ def add_vehicle(request):
         form = VehicleForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('vehicle_list')
+            return redirect('transport:vehicle_list')
     else:
         form = VehicleForm()
     return render(request, 'transport/add_vehicle.html', {'form': form})
@@ -28,7 +28,7 @@ def edit_vehicle(request, vehicle_id):
         form = VehicleForm(request.POST, instance=vehicle)
         if form.is_valid():
             form.save()
-            return redirect('vehicle_list')
+            return redirect('transport:vehicle_list')
     else:
         form = VehicleForm(instance=vehicle)
     return render(request, 'transport/edit_vehicle.html', {'form': form, 'vehicle': vehicle})
@@ -37,7 +37,7 @@ def edit_vehicle(request, vehicle_id):
 def delete_vehicle(request, vehicle_id):
     vehicle = get_object_or_404(Vehicle, id=vehicle_id)
     vehicle.delete()
-    return redirect('vehicle_list')
+    return redirect('transport:vehicle_list')
 
 # Driver Views
 @login_required
@@ -51,7 +51,7 @@ def add_driver(request):
         form = DriverForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('driver_list')
+            return redirect('transport:driver_list')
     else:
         form = DriverForm()
     return render(request, 'transport/add_driver.html', {'form': form})
@@ -63,7 +63,7 @@ def edit_driver(request, driver_id):
         form = DriverForm(request.POST, instance=driver)
         if form.is_valid():
             form.save()
-            return redirect('driver_list')
+            return redirect('transport:driver_list')
     else:
         form = DriverForm(instance=driver)
     return render(request, 'transport/edit_driver.html', {'form': form, 'driver': driver})
@@ -72,7 +72,7 @@ def edit_driver(request, driver_id):
 def delete_driver(request, driver_id):
     driver = get_object_or_404(Driver, id=driver_id)
     driver.delete()
-    return redirect('driver_list')
+    return redirect('transport:driver_list')
 
 # Route Views
 @login_required
@@ -86,7 +86,7 @@ def add_route(request):
         form = RouteForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('route_list')
+            return redirect('transport:route_list')
     else:
         form = RouteForm()
     return render(request, 'transport/add_route.html', {'form': form})
@@ -98,7 +98,7 @@ def edit_route(request, route_id):
         form = RouteForm(request.POST, instance=route)
         if form.is_valid():
             form.save()
-            return redirect('route_list')
+            return redirect('transport:route_list')
     else:
         form = RouteForm(instance=route)
     return render(request, 'transport/edit_route.html', {'form': form, 'route': route})
@@ -107,7 +107,7 @@ def edit_route(request, route_id):
 def delete_route(request, route_id):
     route = get_object_or_404(Route, id=route_id)
     route.delete()
-    return redirect('route_list')
+    return redirect('transport:route_list')
 
 # Schedule Views
 
@@ -121,7 +121,7 @@ def add_schedule(request):
         form = ScheduleForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('schedule_list')
+            return redirect('transport:schedule_list')
     else:
         form = ScheduleForm()
     return render(request, 'transport/add_schedule.html', {'form': form})
@@ -132,7 +132,7 @@ def edit_schedule(request, schedule_id):
         form = ScheduleForm(request.POST, instance=schedule)
         if form.is_valid():
             form.save()
-            return redirect('schedule_list')
+            return redirect('transport:schedule_list')
     else:
         form = ScheduleForm(instance=schedule)
     return render(request, 'transport/edit_schedule.html', {'form': form, 'schedule': schedule})
@@ -140,7 +140,7 @@ def edit_schedule(request, schedule_id):
 def delete_schedule(request, schedule_id):
     schedule = get_object_or_404(Schedule, id=schedule_id)
     schedule.delete()
-    return redirect('schedule_list')
+    return redirect('transport:schedule_list')
 
 @login_required
 def dashboard(request):
