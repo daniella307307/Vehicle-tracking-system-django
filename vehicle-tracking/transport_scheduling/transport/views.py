@@ -3,6 +3,7 @@ from .models import Vehicle, Driver, Schedule, Route
 from .forms import VehicleForm, DriverForm, ScheduleForm, RouteForm
 from django.contrib.auth.decorators import login_required
 
+
 # Vehicle Views
 
 @login_required
@@ -143,5 +144,19 @@ def delete_schedule(request, schedule_id):
     return redirect('transport:schedule_list')
 
 @login_required
+def driver_vehicle_route_list(request):
+    # Fetch all the driver objects along with their assigned vehicles and routes
+    driver_data = Driver.objects.all().select_related('vehicle', 'route')  # optimize queries with select_related
+    
+    return render(request, 'transport/dashboard.html', {'driver_data': driver_data})
+@login_required
 def dashboard(request):
-    return render(request, 'transport/dashboard.html')
+    user = request.user
+    try:
+       
+        role = user.role
+        
+    except Exception as e:
+        role ='NO Role Assigned'
+        
+    return render(request, 'transport/dashboard.html', {'role': role})

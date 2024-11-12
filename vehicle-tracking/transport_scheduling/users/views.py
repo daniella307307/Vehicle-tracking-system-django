@@ -2,33 +2,24 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .forms import UserRegistrationForm, UserLoginForm, ProfileForm
-from .models import Profile
+from .forms import UserRegistrationForm, UserLoginForm
+
 
 def register_user(request):
     if request.method == 'POST':
         user_form = UserRegistrationForm(request.POST)
-        profile_form = ProfileForm(request.POST)
-        if user_form.is_valid() and profile_form.is_valid():
-            # Save the user instance
+        if user_form.is_valid():
             user = user_form.save()
-
-            # Create and save the profile instance with the role
-            profile = profile_form.save(commit=False)
-            profile.user = user
-            profile.save()
-
             messages.success(request, 'Registration successful.')
             return redirect('login_user')
         else:
             messages.error(request, 'Please correct the errors below.')
     else:
         user_form = UserRegistrationForm()
-        profile_form = ProfileForm()
+    
 
     return render(request, 'users/registration.html', {
-        'user_form': user_form,
-        'profile_form': profile_form,
+        'user_form': user_form
     })
 
 def login_user(request):
@@ -51,15 +42,3 @@ def login_user(request):
 def logout_user(request):
     logout(request)
     return redirect('login_user')
-
-@login_required
-def edit_profile(request):
-    if request.method == 'POST':
-        profile_form = ProfileForm(request.POST, instance=request.user.profile)
-        if profile_form.is_valid():
-            profile_form.save()
-            messages.success(request, 'Profile updated successfully.')
-            return redirect('transport:dashboard')
-    else:
-        profile_form = ProfileForm(instance=request.user.profile)
-    return render(request, 'users/edit_profile.html', {'profile_form': profile_form})
