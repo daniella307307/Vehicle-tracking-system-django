@@ -2,6 +2,7 @@ from django import forms
 from .models import Profile,CustomUser
 from django.contrib.auth.forms import UserCreationForm
 
+
 class UserRegistrationForm(UserCreationForm):
     email = forms.EmailField(required=True)
 
@@ -15,6 +16,7 @@ class UserRegistrationForm(UserCreationForm):
         if password1 and password2 and password1 != password2:
             raise forms.ValidationError("Passwords do not match.")
         return password2
+
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile

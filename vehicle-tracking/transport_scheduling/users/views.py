@@ -10,10 +10,14 @@ def register_user(request):
         user_form = UserRegistrationForm(request.POST)
         profile_form = ProfileForm(request.POST)
         if user_form.is_valid() and profile_form.is_valid():
+            # Save the user instance
             user = user_form.save()
+
+            # Create and save the profile instance with the role
             profile = profile_form.save(commit=False)
             profile.user = user
             profile.save()
+
             messages.success(request, 'Registration successful.')
             return redirect('login_user')
         else:
@@ -21,6 +25,7 @@ def register_user(request):
     else:
         user_form = UserRegistrationForm()
         profile_form = ProfileForm()
+
     return render(request, 'users/registration.html', {
         'user_form': user_form,
         'profile_form': profile_form,

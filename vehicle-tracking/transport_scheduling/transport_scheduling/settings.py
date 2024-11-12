@@ -38,8 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'transport',
+    'crispy_forms',
+    'crispy_bootstrap4',
     'users'
 ]
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 AUTH_USER_MODEL = 'users.CustomUser'
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'dashboard'
