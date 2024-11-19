@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Vehicle, Driver, Schedule, Route
 from .forms import VehicleForm, DriverForm, ScheduleForm, RouteForm
@@ -9,8 +10,26 @@ from django.contrib.auth.decorators import login_required
 @login_required
 def vehicle_list(request):
     vehicles = Vehicle.objects.all()
-    return render(request, 'transport/vehicle_list.html', {'vehicles': vehicles})
+    vehicle_names = [vehicle.make for vehicle in vehicles]
+    vehicle_data = [vehicle.capacity for vehicle in vehicles]  
+    
+   
 
+    return render(request, 'transport/vehicle_list.html', {'vehicles': vehicles, 'vehicle_name':vehicle_names, 'vehicle_data':vehicle_data})
+def vehicle_data(request):
+    vehicles = Vehicle.objects.all()
+    
+    # Prepare data for JSON response
+    vehicle_data = [
+        {
+            "name": vehicle.make,
+            "capacity": vehicle.capacity
+        }
+        for vehicle in vehicles
+    ]
+    
+    # Return data as JSON
+    return JsonResponse({"vehicles": vehicle_data}, safe=False)
 @login_required
 def add_vehicle(request):
     if request.method == 'POST':
@@ -170,5 +189,5 @@ def dashboard(request):
         'schedules':schedules,
         'drivers': drivers,
         'routes': routes,
-        'vehicles': vehicles
+        'vehicles': vehicles,
         })

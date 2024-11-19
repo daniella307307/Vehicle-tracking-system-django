@@ -3,7 +3,7 @@ from .views import (
     vehicle_list, add_vehicle, edit_vehicle, delete_vehicle,
     driver_list, add_driver, edit_driver, delete_driver,
     route_list, add_route, edit_route, delete_route,
-    schedule_list, add_schedule, edit_schedule, delete_schedule,dashboard
+    schedule_list, add_schedule, edit_schedule, delete_schedule,dashboard, vehicle_data
 )
 app_name= 'transport'
 urlpatterns = [
@@ -14,6 +14,7 @@ urlpatterns = [
     path('vehicles/add/', add_vehicle, name='add_vehicle'),
     path('vehicles/edit/<int:vehicle_id>/', edit_vehicle, name='edit_vehicle'),
     path('vehicles/delete/<int:vehicle_id>/', delete_vehicle, name='delete_vehicle'),
+    path('vehicles/vehicle_data',vehicle_data, name='vehicle_data'),
     
     # Driver URLs
     path('drivers/', driver_list, name='driver_list'),

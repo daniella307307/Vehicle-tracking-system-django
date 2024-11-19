@@ -11,6 +11,7 @@ class VehicleForm(forms.ModelForm):
             'model': forms.TextInput(attrs={'class': 'form-control'}),
             'year': forms.NumberInput(attrs={'class': 'form-control'}),
             'color': forms.TextInput(attrs={'class': 'form-control'}),
+            'capacity': forms.NumberInput(attrs={'class': 'form-control'}),
             'latitude': forms.NumberInput(attrs={'class': 'form-control', 'step': 'any'}),
             'longitude': forms.NumberInput(attrs={'class': 'form-control', 'step': 'any'}),
             'driver': forms.Select(attrs={'class': 'form-control'}),

@@ -22,6 +22,7 @@ class Vehicle(models.Model):
     model = models.CharField(max_length=50)
     year = models.PositiveIntegerField()
     color = models.CharField(max_length=30)
+    capacity = models.PositiveBigIntegerField(default=5)
     latitude = models.FloatField()
     longitude = models.FloatField()
     driver = models.ForeignKey(Driver, on_delete=models.SET_NULL, null=True, blank=True)
