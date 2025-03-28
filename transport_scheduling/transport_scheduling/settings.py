@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import pymysql
+
+pymysql.install_as_MySQLdb()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,7 +29,8 @@ SECRET_KEY = 'django-insecure-xkn0!8jq4su1**sfwanz-ws95m_rbk=2=-g_n$8wvvbqj(#k^u
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+USE_TZ = True
+TIME_ZONE = "UTC"
 
 # Application definition
 
@@ -84,8 +88,12 @@ WSGI_APPLICATION = 'transport_scheduling.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'vehicle_tracking',
+        'USER':'root',
+        'PASSWORD':'root',
+        "HOST":'localhost',
+        "PORT":'3306'
     }
 }
 

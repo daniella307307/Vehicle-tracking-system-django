@@ -4,7 +4,7 @@ from .models import Vehicle, Driver, Schedule, Route
 class VehicleForm(forms.ModelForm):
     class Meta:
         model = Vehicle
-        fields = ['VIN', 'make', 'model', 'year', 'color', 'latitude', 'longitude', 'driver']
+        fields = ['VIN', 'make', 'model', 'year', 'color','driver', 'status']
         widgets = {
             'VIN': forms.TextInput(attrs={'class': 'form-control'}),
             'make': forms.TextInput(attrs={'class': 'form-control'}),
@@ -12,9 +12,8 @@ class VehicleForm(forms.ModelForm):
             'year': forms.NumberInput(attrs={'class': 'form-control'}),
             'color': forms.TextInput(attrs={'class': 'form-control'}),
             'capacity': forms.NumberInput(attrs={'class': 'form-control'}),
-            'latitude': forms.NumberInput(attrs={'class': 'form-control', 'step': 'any'}),
-            'longitude': forms.NumberInput(attrs={'class': 'form-control', 'step': 'any'}),
             'driver': forms.Select(attrs={'class': 'form-control'}),
+            'status':forms.Select(attrs={'class': 'form-control'}),
         }
 
 class DriverForm(forms.ModelForm):

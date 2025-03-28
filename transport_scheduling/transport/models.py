@@ -23,9 +23,9 @@ class Vehicle(models.Model):
     year = models.PositiveIntegerField()
     color = models.CharField(max_length=30)
     capacity = models.PositiveBigIntegerField(default=5)
-    latitude = models.FloatField()
-    longitude = models.FloatField()
+
     driver = models.ForeignKey(Driver, on_delete=models.SET_NULL, null=True, blank=True)
+    status = models.CharField(max_length=20,choices=[('Active', 'active'),('inactive', 'Inactive')])
 
     def __str__(self):
         return f"{self.make} {self.model} ({self.year})"
@@ -36,6 +36,7 @@ class Route(models.Model):
     end_location = models.CharField(max_length=100)
     distance = models.FloatField() 
     duration = models.FloatField()  
+    estimated_time = models.FloatField(default=0)  # Predicted via ML model
 
     def __str__(self):
         return f"Route from {self.start_location} to {self.end_location}"
@@ -47,6 +48,7 @@ class Schedule(models.Model):
     route = models.ForeignKey(Route, on_delete=models.CASCADE)
     departure_time = models.DateTimeField()
     arrival_time = models.DateTimeField()
+    estimated_time = models.FloatField( default= 0)
 
     def __str__(self):
         return f"Schedule: {self.vehicle} - {self.driver} on {self.route}"
