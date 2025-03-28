@@ -72,7 +72,7 @@
                         }
                 
                         
-                        const vehicleNames = vehicles.map(vehicle => vehicle.name);
+                        const vehicleNames = vehicles.map(vehicle => vehicle.model);
                         const vehicleData = vehicles.map(vehicle => vehicle.capacity);
                 
                         const chartData = {
@@ -121,6 +121,11 @@
                     <div>
                         <button type="button" class="btn btn-success">
                             <a href="{% url 'transport:add_driver' %}" style="color: white;">Add Driver</a>
+                        </button>
+                    </div>
+                    <div>
+                        <button type="button" class="btn btn-success">
+                            <a href="{% url 'transport:predict' %}" style="color: white;">Predict Duration journey</a>
                         </button>
                     </div>
                 </div>

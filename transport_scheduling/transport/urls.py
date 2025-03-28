@@ -3,7 +3,7 @@ from .views import (
     vehicle_list, add_vehicle, edit_vehicle, delete_vehicle,
     driver_list, add_driver, edit_driver, delete_driver,
     route_list, add_route, edit_route, delete_route,
-    schedule_list, add_schedule, edit_schedule, delete_schedule,dashboard, vehicle_data
+    schedule_list, add_schedule, edit_schedule, delete_schedule,dashboard, vehicle_data,predict_journey_duration
 )
 app_name= 'transport'
 urlpatterns = [
@@ -33,4 +33,7 @@ urlpatterns = [
     path('schedules/add/', add_schedule, name='add_schedule'),
     path('schedules/edit/<int:schedule_id>/', edit_schedule, name='edit_schedule'),
     path('schedules/delete/<int:schedule_id>/', delete_schedule, name='delete_schedule'),
+
+    #model predictions
+    path('predict/', predict_journey_duration, name='predict'),
 ]

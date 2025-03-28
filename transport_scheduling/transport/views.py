@@ -1,12 +1,14 @@
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Vehicle, Driver, Schedule, Route
-from .forms import VehicleForm, DriverForm, ScheduleForm, RouteForm
+from .forms import VehicleForm, DriverForm, ScheduleForm, RouteForm,JourneyPredictionForm
 from django.contrib.auth.decorators import login_required
-
+import joblib
+from django.shortcuts import render
+import numpy as np
 
 # Vehicle Views
-
+model = joblib.load(r'C:\Users\user\Projects\vehicle-tracking\vehicle-tracking\Vehicle-tracking-system-django\transport_scheduling\transport\models\journey_duration_model.pkl')
 @login_required
 def vehicle_list(request):
     vehicles = Vehicle.objects.all()
@@ -191,3 +193,66 @@ def dashboard(request):
         'routes': routes,
         'vehicles': vehicles,
         })
+
+# Weather impact on journey duration
+weather_impact = {"Sunny": 1.0, "Cloudy": 1.2, "Rainy": 1.5}  # Example: Rain slows travel
+
+# Speed map for traffic levels
+speed_map = {
+    "Low": np.random.uniform(0.7, 1.2),  # Fast speed (fewer delays)
+    "Medium": np.random.uniform(0.4, 0.7),
+    "High": np.random.uniform(0.2, 0.4),  # Slow speed (high congestion)
+}
+@login_required
+def predict_journey_duration(request):
+    prediction = None
+    error_message = None
+
+    # Check if the form is submitted
+    if request.method == "POST":
+        form = JourneyPredictionForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+
+            try:
+                # Prepare the feature array for prediction
+                features = []
+
+                # Numeric fields
+                features.append(data["distance_km"])
+                features.append(data["temperature"])
+                features.append(data["hour_of_day"])
+
+                # Weather features (binary encoded)
+                weather_Rainy = 1 if data["weather_Rainy"] else 0
+                weather_Sunny = 1 if data["weather_Sunny"] else 0
+                features.append(weather_Rainy)
+                features.append(weather_Sunny)
+
+                # Traffic level features (binary encoded)
+                traffic_level_Low = 1 if data["traffic_level_Low"] else 0
+                traffic_level_Medium = 1 if data["traffic_level_Medium"] else 0
+                features.append(traffic_level_Low)
+                features.append(traffic_level_Medium)
+
+                # Day of week feature (binary encoded)
+                day_of_week_Weekend = 1 if data["day_of_week_Weekend"] else 0
+                features.append(day_of_week_Weekend)
+
+                # Calculate the predicted journey duration (this could be done either as part of the model
+                # or as a feature. Here, it's just an example based on `distance_km`).
+                # You might need to modify this calculation if your model expects a different approach.
+                journey_duration_min = data["distance_km"] * 1.5  # Placeholder calculation for example purposes
+                features.append(journey_duration_min)
+
+                # Convert features to a numpy array (reshaped for prediction)
+                feature_array = np.array(features).reshape(1, -1)
+                prediction = model.predict(feature_array)[0]
+
+            except Exception as e:
+                error_message = str(e)
+
+    else:
+        form = JourneyPredictionForm()
+
+    return render(request, "transport/predict.html", {"form": form, "prediction": prediction, "error_message": error_message})
